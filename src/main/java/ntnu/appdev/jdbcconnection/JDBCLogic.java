@@ -2,9 +2,12 @@ package ntnu.appdev.jdbcconnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class JDBCLogic {
+    static Connection con = null;
 
     public static Connection connect() {
 
@@ -16,7 +19,6 @@ public class JDBCLogic {
         }
 
         //path for database and connection
-        Connection con = null;
         try {
             con = DriverManager.getConnection("jdbc:sqlite:empty_db.db");
             System.out.println("Connected!");
