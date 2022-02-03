@@ -1,12 +1,13 @@
 package ntnu.appdev.jdbcconnection;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +15,14 @@ import java.util.List;
 @RequestMapping("/project")
 public class ProjectController {
 
+    JDBCLogic db = new JDBCLogic();
+
     public ProjectController() {
 
     }
 
     @GetMapping("")
     public List<Project> getProjects() {
-        JDBCLogic db = new JDBCLogic();
         return createProjectsFromResultSet(db.showAllProjects());
     }
 
@@ -34,5 +36,23 @@ public class ProjectController {
             e.printStackTrace();
         }
         return projects;
+    }
+
+    private String createListOfCheapestPlans(ResultSet resultSet) {
+        ArrayList<Object> list = new ArrayList<>();
+        String finalStr = "Project name - Plan name - Plan cost<br>";
+        try {
+            while (resultSet.next()) {
+                finalStr += " " + resultSet.getString(1) + " - " + resultSet.getString(2) + " - " + resultSet.getInt(3) + "<br>";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return finalStr;
+    }
+
+    @GetMapping("/cheapest")
+    public String getCheapestPlanForProjects() {
+        return createListOfCheapestPlans(db.getPlansWithLeastCost());
     }
 }
