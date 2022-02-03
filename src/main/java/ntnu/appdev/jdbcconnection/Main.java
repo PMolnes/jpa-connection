@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class Main {
     private static Connection con;
-    
+
     public static void main(String[] args) {
         con = JDBCLogic.connect();
         updateProjectDeadline(1000, "2025-12-31");
@@ -46,8 +46,9 @@ public class Main {
         return result;
     }
 
+
+
     private static void addEmployee(String eID, String name, String cost) {
-        Connection con = JDBCLogic.connect();
         PreparedStatement prepared;
         try {
             String sql = "INSERT INTO Employee(eID, name, cost) VALUES(?,?,?)";

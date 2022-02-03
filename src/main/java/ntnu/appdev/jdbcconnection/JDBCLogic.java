@@ -1,13 +1,9 @@
 package ntnu.appdev.jdbcconnection;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Date;
+import java.sql.*;
 
 public class JDBCLogic {
-    static Connection con = null;
+    private static Connection con = connect();
 
     public static Connection connect() {
 
@@ -28,7 +24,17 @@ public class JDBCLogic {
         return con;
     }
 
-    public static void main(String[] args) {
-        connect();
+    public ResultSet showAllProjects() {
+        PreparedStatement prepared;
+        ResultSet result = null;
+        try {
+            String sql = "SELECT * FROM Project";
+            prepared = con.prepareStatement(sql);
+            result = prepared.executeQuery();
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
