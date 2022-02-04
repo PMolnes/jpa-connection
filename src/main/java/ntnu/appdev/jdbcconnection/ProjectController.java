@@ -38,21 +38,20 @@ public class ProjectController {
         return projects;
     }
 
-    private String createListOfCheapestPlans(ResultSet resultSet) {
-        ArrayList<Object> list = new ArrayList<>();
-        String finalStr = "Project name - Plan name - Plan cost<br>";
+    private List<ProjectInfo> createListOfCheapestPlans(ResultSet resultSet) {
+        ArrayList<ProjectInfo> projectInfos = new ArrayList<>();
         try {
             while (resultSet.next()) {
-                finalStr += " " + resultSet.getString(1) + " - " + resultSet.getString(2) + " - " + resultSet.getInt(3) + "<br>";
+                projectInfos.add(new ProjectInfo(resultSet.getString(1), resultSet.getString(2), resultSet.getInt(3)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return finalStr;
+        return projectInfos;
     }
 
     @GetMapping("/cheapest")
-    public String getCheapestPlanForProjects() {
+    public List<ProjectInfo> getCheapestPlanForProjects() {
         return createListOfCheapestPlans(db.getPlansWithLeastCost());
     }
 }
