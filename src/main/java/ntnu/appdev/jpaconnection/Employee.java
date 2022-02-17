@@ -1,4 +1,4 @@
-package ntnu.appdev.jdbcconnection;
+package ntnu.appdev.jpaconnection;
 
 public class Employee {
     private int eId;

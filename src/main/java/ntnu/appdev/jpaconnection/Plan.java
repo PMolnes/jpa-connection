@@ -1,4 +1,4 @@
-package ntnu.appdev.jdbcconnection;
+package ntnu.appdev.jpaconnection;
 
 import java.time.LocalDate;
 

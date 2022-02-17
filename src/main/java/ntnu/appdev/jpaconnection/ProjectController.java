@@ -1,5 +1,6 @@
-package ntnu.appdev.jdbcconnection;
+package ntnu.appdev.jpaconnection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,8 @@ import java.util.List;
 @RequestMapping("/project")
 public class ProjectController {
 
-    JDBCLogic db = new JDBCLogic();
+    @Autowired
+    ProjectService projectService = new ProjectService();
 
     public ProjectController() {
 
@@ -21,7 +23,7 @@ public class ProjectController {
 
     @GetMapping("")
     public List<Project> getProjects() {
-        return createProjectsFromResultSet(db.showAllProjects());
+        return projectService.readProjects();
     }
 
     private List<Project> createProjectsFromResultSet(ResultSet resultSet) {
@@ -50,6 +52,6 @@ public class ProjectController {
 
     @GetMapping("/cheapest")
     public List<ProjectInfo> getCheapestPlanForProjects() {
-        return createListOfCheapestPlans(db.getPlansWithLeastCost());
+        return null;
     }
 }

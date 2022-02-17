@@ -1,19 +1,24 @@
-package ntnu.appdev.jdbcconnection;
+package ntnu.appdev.jpaconnection;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
+@Entity
 public class Project {
 
-    private int projectId;
+    @Id
+    private int projectID;
+
     private String name;
     private String leader;
     private int budget;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public Project(int projectId, String name, String leader, int budget, String startDate, String endDate) {
+    public Project(int projectID, String name, String leader, int budget, String startDate, String endDate) {
         if (checkDates(startDate, endDate)) {
-            this.projectId = projectId;
+            this.projectID = projectID;
             this.name = name;
             this.leader = leader;
             this.budget = budget;
@@ -22,12 +27,12 @@ public class Project {
         }
     }
 
-    public int getProjectId() {
-        return projectId;
+    public int getProjectID() {
+        return projectID;
     }
 
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
     }
 
     public String getName() {

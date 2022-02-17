@@ -1,4 +1,4 @@
-package ntnu.appdev.jdbcconnection;
+package ntnu.appdev.jpaconnection;
 
 public class ProjectInfo {
     private String projectName;
